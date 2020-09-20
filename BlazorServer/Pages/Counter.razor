@@ -1,0 +1,54 @@
+﻿@*
+    Contoh component Counter di bawah:
+    Kode c # menambah nilai variabel currentCount sebesar 1 setiap kali tombol diklik.
+    Ketika tombol diklik Fungsi IncrementCount () harus dipanggil.
+    Ini dihubungkan dengan menggunakan atribut onclick.
+    Di HTML, untuk mengakses nilai variabel pribadi currentCount, gunakan karakter "@".
+    Kode C # ada di blok "@code". Dimungkinkan juga untuk memiliki lebih dari satu blok "@code".
+
+    Component file memiliki ektensi yaitu .razor
+    Ketika aplikasi dikompilasi, kode HTML dan C# diubah menjadi kelas komponen.
+    Nama kelas yang dihasilkan cocok dengan nama file komponen.
+    Nama file komponen harus dimulai dengan karakter huruf besar.
+    Jika Anda menambahkan file komponen yang dimulai dengan karakter huruf kecil, kode akan gagal untuk dikompilasi dan Anda mendapatkan kesalahan kompiler berikut.
+
+    Ingat bahwa blazor server project berjalan di server.
+    1. Koneksi SignalR dibuat antara server dan browser klien. Setelah komponen penghitung awalnya dirender dan saat pengguna mengklik tombol.
+    2. Informasi tentang peristiwa klik dikirim ke server melalui koneksi SignalR.
+    3. Menanggapi event tersebut, komponen dibuat ulang, tetapi seluruh HTML tidak dikirim kembali ke klien. Ini hanya perbedaannya, yaitu perbedaan dalam pohon render, dalam hal ini, nilai penghitung baru yang dikirim ke browser klien.
+    4. Karena hanya bagian halaman yang diubah yang diperbarui, bukan memuat ulang dan memperbarui seluruh halaman, aplikasi terasa lebih cepat dan lebih responsif terhadap pengguna.
+
+    Dimana tempat yang baik untuk menempatkan komponent?
+    Komponen dapat ditempatkan di mana saja dalam proyek blazor.
+    Merupakan praktik yang baik untuk menempatkan komponen yang menghasilkan halaman web di folder Pages dan komponen non-halaman yang dapat digunakan kembali di folder Shared.
+    Jika mau, Anda juga dapat menempatkannya di folder kustom yang sama sekali berbeda dalam proyek Anda.
+*@
+
+@page "/counter"
+@*
+    Salah satu cara agar komponen Counter dirender adalah dengan menavigasi ke /counter di browser.
+    Jalur ini ditentukan oleh perintah "@page" di bagian atas komponen.
+    Sebuah komponen juga dapat disarangkan di dalam komponen lain menggunakan sintaks HTML.
+    Misalnya, gunakan <Counter /> untuk menumpuk komponen Counter di komponen Index.
+*@
+
+@inherits CounterBase
+@* 
+    lalku kita bisa menggunakan @inherits directive untuk menggunakan class CounterBase sebagai view class di Counter.razor component
+*@
+
+
+<h1>Counter</h1>
+
+<p style="font-family:@fontFamily">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@*
+    Dalam contoh ini kode HTML dan C# ada dalam satu file tetapi biasanya merupakan praktik yang baik untuk memisahkan kode HTML dan C # ke dalam file mereka sendiri.
+    Ini tidak hanya baik dari sudut pandang pemeliharaan, tetapi juga mudah untuk menguji unit.
+    ada 2 cara untuk meng-split file HTML dan C#:
+    1. Partial files approach
+    2. Base class approach
+*@
+

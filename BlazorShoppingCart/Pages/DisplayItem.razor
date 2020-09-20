@@ -1,0 +1,11 @@
+﻿@inherits DisplayItemBase
+
+<div class="card" style="width: 18rem;">
+    <img src="@CartItem.PhotoPath" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">@CartItem.TitleBarang</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a class="card-link text-dark">@CartItem.DisplayShoppingCartItem</a>
+        <button @onclick="(() => OnAddItem.InvokeAsync(CartItem.Id))" class="btn btn-sm ml-5 btn-info">Beli Sekarang</button>
+    </div>
+</div>

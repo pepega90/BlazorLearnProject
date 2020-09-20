@@ -1,0 +1,56 @@
+﻿@page "/shop"
+@inherits ShoppingCartBase
+
+<h3 class="text-center mb-5">Cakue &amp; Odading Mang soleh</h3>
+
+@if (ShoppingCartsItem == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+
+    <div class="card-deck">
+        @foreach (var item in ShoppingCartsItem)
+        {
+            <DisplayItem CartItem="item" OnAddItem="AddToCart" />
+        }
+    </div>
+}
+
+<h3 class="text-center mt-lg-5 mb-3">Keranjang</h3>
+<hr />
+<div style="display:flex; justify-content: space-around;">
+    <h3>Kopi</h3>
+    <h3>Harga</h3>
+    <h3>Quantity</h3>
+</div>
+
+<div>
+    @if (listUserCart.Any())
+    {
+        @foreach (var userItem in listUserCart)
+        {
+            <div class="userItem mt-3 mb-3">
+                <div>
+                    <h3>@userItem.NamaBarang</h3>
+                    <img width="135" src="@userItem.PhotoPath" />
+                </div>
+                <h3>@userItem.DisplayItemUserHarga</h3>
+                <div>
+                    <button @onclick="@(() => HapusItem(userItem.Id))" class="btn btn-sm btn-danger">Hapus Pesanan</button>
+                    <br />
+                    <input style="width:119px" type="number" @bind="@userItem.Quantity">
+                </div>
+            </div>
+            <hr />
+        }
+        <h2>Total Harga : @DisplayShoppingCartTotal</h2>
+        <button @onclick="BayarPesanan" class="btn btn-primary">Bayar</button>
+    }
+    else
+    {
+        <h4 class="text-center mt-lg-5 mb-lg-5">Anda Belum melakukan pembelian</h4>
+    }
+</div>
+

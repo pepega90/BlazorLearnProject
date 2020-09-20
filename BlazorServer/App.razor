@@ -1,0 +1,20 @@
+﻿
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+@*
+    App.razor
+    Ini adalah komponen root aplikasi.
+    Ini menggunakan komponen Router built-in dan mengatur perutean sisi klien.
+    Komponen Router inilah yang memotong navigasi browser dan membuat halaman yang cocok dengan alamat yang diminta.
+    Router menggunakan properti Found untuk menampilkan konten ketika kecocokan ditemukan.
+    Jika kecocokan tidak ditemukan, properti NotFound digunakan untuk menampilkan pesan - Maaf, tidak ada apa-apa di alamat ini.
+*@

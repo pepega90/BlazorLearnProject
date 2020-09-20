@@ -1,0 +1,38 @@
+﻿@page "/todo"
+@inherits TodoBase
+
+<h3 class="text-center display-4">Todo App</h3>
+<h5>List Todo Left - @(todoLists.Count(todo => !todo.isDone))</h5>
+
+<div>
+    <EditForm Model="todo" OnValidSubmit="AddTodo">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <InputText @bind-Value="todo.TodoItem" placeholder="Input Todo..." class="form-control" />
+    </EditForm>
+</div>
+
+<ul>
+    @foreach (var item in todoLists)
+    {
+
+        @*<TodoChild OnEditTodo="EditTodo" OnDeleteTodo="DeleteTodo" TodoItem="item"/>*@
+        <li style="margin: 2rem 0; @(item.isDone ? "text-decoration:line-through" : null)">
+            <div class="todo">
+                <div class="input-todo">
+                    <input style="margin-right: 1rem" type="checkbox" @bind="item.isDone" />
+                    <p class="h5">@item.TodoItem</p>
+                </div>
+                <div>
+                    <button @onclick="@(() => DeleteTodo(item.Id))" class="btn btn-sm btn-danger ml-2">
+                        Delete  <span class="oi oi-trash" aria-hidden="true"></span>
+                    </button>
+                    <button @onclick="@(() => EditTodo(item.Id))" class="btn btn-sm btn-success ml-2">
+                        Edit <span class="oi oi-pencil"></span>
+                    </button>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
